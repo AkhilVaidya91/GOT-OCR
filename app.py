@@ -87,6 +87,8 @@ def get_llama_op(image_file, model, processor):
 
     with open(image_file, "rb") as f:
         image = base64.b64encode(f.read()).decode('utf-8')
+
+    image = Image.open(image_file)
     messages = [
         {"role": "user", "content": [
             {"type": "image"},
@@ -94,9 +96,9 @@ def get_llama_op(image_file, model, processor):
         ]}
     ]
     input_text = processor.apply_chat_template(messages, add_generation_prompt=True)
-    inputs = processor(image, input_text, return_tensors="pt").to(model.device)
+    inputs = processor(images=image, text=input_text, return_tensors="pt").to(model.device)
 
-    output = model.generate(**inputs, max_new_tokens=30)
+    output = model.generate(**inputs, max_new_tokens=128)
     return processor.decode(output[0])
 
 def get_text(image_file, model, tokenizer):
