@@ -98,7 +98,7 @@ def get_llama_op(image_file, model, processor):
     input_text = processor.apply_chat_template(messages, add_generation_prompt=True)
     inputs = processor(images=image, text=input_text, return_tensors="pt").to(model.device)
 
-    output = model.generate(**inputs, max_new_tokens=128)
+    output = model.generate(**inputs, max_new_tokens=20)
     return processor.decode(output[0])
 
 def get_text(image_file, model, tokenizer):
