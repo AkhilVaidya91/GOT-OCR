@@ -106,7 +106,7 @@ def get_text(image_file, model, tokenizer):
 st.title("Image - Text OCR")
 st.write("Upload an image for OCR")
 
-MODEL, PROCESSOR = init_llama()
+# MODEL, PROCESSOR = init_llama()
 random_value = random.randint(0, 100)
 st.write(f"Model loaded: build number - {random_value}")
 
@@ -125,7 +125,7 @@ if image_file:
     # model, tokenizer = init_model()
     # text = get_text(image_file, model, tokenizer)
 
-    # model, processor = init_llama()
+    model, processor = init_llama()
     text = get_llama_op(image_file, MODEL, PROCESSOR)
 
     # model, processor = init_qwen_model()
