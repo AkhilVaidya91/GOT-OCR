@@ -126,7 +126,7 @@ if image_file:
     # text = get_text(image_file, model, tokenizer)
 
     model, processor = init_llama()
-    text = get_llama_op(image_file, MODEL, PROCESSOR)
+    text = get_llama_op(image_file, model, processor)
 
     # model, processor = init_qwen_model()
     # text = get_quen_op(image_file, model, processor)
