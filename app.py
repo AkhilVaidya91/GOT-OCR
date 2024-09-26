@@ -7,8 +7,8 @@ import torch
 from torchvision import io
 from typing import Dict
 import base64
-import random
 
+@st.cache_resource
 def init_model():
     tokenizer = AutoTokenizer.from_pretrained('srimanth-d/GOT_CPU', trust_remote_code=True)
     model = AutoModel.from_pretrained('srimanth-d/GOT_CPU', trust_remote_code=True, use_safetensors=True, pad_token_id=tokenizer.eos_token_id)
@@ -71,6 +71,7 @@ def get_quen_op(image_file, model, processor):
     except Exception as e:
         return f"An error occurred: {str(e)}"
 
+@st.cache_resource
 def init_llama():
     model_id = "meta-llama/Llama-3.2-11B-Vision-Instruct"
 
@@ -105,12 +106,10 @@ def get_text(image_file, model, tokenizer):
     res = model.chat(tokenizer, image_file, ocr_type='ocr')
     return res
 
-st.title("Image - Text OCR")
+st.title("Image - Text OCR (General OCR Theory - GOT)")
 st.write("Upload an image for OCR")
 
-MODEL, PROCESSOR = init_llama()
-random_value = random.randint(0, 100)
-st.write(f"Model loaded: build number - {random_value}")
+MODEL, PROCESSOR = init_model()
 
 image_file = st.file_uploader("Upload Image", type=['jpg', 'png', 'jpeg'])
 
@@ -125,10 +124,10 @@ if image_file:
 
     # model, tokenizer = init_gpu_model()
     # model, tokenizer = init_model()
-    # text = get_text(image_file, model, tokenizer)
+    text = get_text(image_file, MODEL, PROCESSOR)
 
     # model, processor = init_llama()
-    text = get_llama_op(image_file, MODEL, PROCESSOR)
+    # text = get_llama_op(image_file, MODEL, PROCESSOR)
 
     # model, processor = init_qwen_model()
     # text = get_quen_op(image_file, model, processor)
