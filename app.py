@@ -82,7 +82,7 @@ def highlight_text(text, search_term):
     pattern = re.compile(re.escape(search_term), re.IGNORECASE)
     return pattern.sub(lambda m: f'<span style="background-color: yellow;">{m.group()}</span>', text)
 
-st.title("Image - Text OCR (General OCR Theory - GOT)")
+st.title("Image Text OCR - GOT)")
 st.write("Upload an image for OCR")
 
 MODEL, PROCESSOR = init_model()
