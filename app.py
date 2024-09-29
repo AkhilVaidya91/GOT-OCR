@@ -72,8 +72,8 @@ def get_quen_op(image_file, model, processor):
         return f"An error occurred: {str(e)}"
 
 @st.cache_data
-def get_text(image_file, _model, tokenizer):
-    res = _model.chat(tokenizer, image_file, ocr_type='ocr')
+def get_text(image_file, _model, _tokenizer):
+    res = _model.chat(_tokenizer, image_file, ocr_type='ocr')
     return res
 
 def highlight_text(text, search_term):
