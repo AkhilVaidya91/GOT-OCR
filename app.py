@@ -71,7 +71,7 @@ def get_quen_op(image_file, model, processor):
     except Exception as e:
         return f"An error occurred: {str(e)}"
 
-# @st.cache_data
+@st.cache_data
 def get_text(image_file, model, tokenizer):
     res = model.chat(tokenizer, image_file, ocr_type='ocr')
     return res
